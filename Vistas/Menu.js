@@ -1,0 +1,577 @@
+// navbar.js
+(function() {
+    // 1. TODO TU CSS AQUÍ
+    const css = `
+        /* =========================================
+   VARIABLES GLOBALES
+   Para cambiar colores o anchos fácilmente
+   ========================================= */
+:root {
+    --sidebar-width: 320px;
+    --dark-bg: #51556b;
+    --item-hover: #a7b3d4;
+    --accent: #8dd3f6a8;
+    --text-main: #ffffff;
+    --text-dim: #b6b6b6;
+}
+
+/* =========================================
+   ESTILOS BASE DEL CUERPO
+   ========================================= */
+body {
+    margin: 0;
+    padding-top: var(--nav-height); /* Espacio para que el contenido no quede bajo la barra */
+    font-family: 'Inter', sans-serif;
+    background-color: #f5f5f5;
+}
+
+/* =========================================
+   CONTENEDOR PRINCIPAL (NAVBAR)
+   ========================================= */
+.main-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--nav-height);
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 25px;
+    box-sizing: border-box;
+    z-index: 1000;
+    border-bottom: 1px solid #000; /* Línea negra delgada */
+    box-shadow: var(--shadow-nav); /* Sombra abajo */
+}
+
+/* =========================================
+   NAVEGACIÓN CENTRAL (LINKS Y DROPDOWNS)
+   ========================================= */
+.nav-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    flex-grow: 0.4; /* Hace que ocupe el espacio sobrante para centrarse */
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    /* Agregamos un margen a la derecha para separar el botón de los menús */
+    margin-right: 40px; 
+}
+
+/* Texto vistoso para los enlaces principales */
+.nav-link-main {
+   font-weight: 800;
+    font-size: 0.9rem;
+    color: #000;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+}
+
+.nav-link-main:hover {
+    color: var(--accent);
+}
+
+/* Contenedor del Dropdown */
+.nav-item-dropdown {
+    position: relative;
+    padding: 20px 0; /* Aumenta el área para que no se cierre al mover el mouse */
+}
+
+/* Mini Menú que sale abajo */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%; /* Justo debajo de la barra */
+    left: 0;
+    background: white;
+    min-width: 160px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    border: 1px solid #eee;
+    padding: 10px 0;
+    z-index: 2001;
+    display: none;
+    flex-direction: row; /* Uno al lado del otro */
+    gap: 15px;
+    padding: 15px;
+    white-space: nowrap;
+}
+
+/* Mostrar al poner el mouse */
+.nav-item-dropdown:hover .dropdown-content {
+    display: flex;
+}
+
+.dropdown-content a {
+    color: black;
+    font-weight: bold;
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.dropdown-content a:hover {
+    color: var(--accent);
+    text-decoration: underline;
+}
+
+/* =========================================
+   CARRITO DE COMPRAS
+   ========================================= */
+.cart-icon {
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.cart-icon:hover {
+    transform: scale(1.2);
+}
+
+/* =========================================
+   LADO DERECHO (BUSCADOR Y AUTH)
+   ========================================= */
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+
+/* =========================================
+   BOTÓN DEL MENÚ (ESQUINA SUPERIOR IZQUIERDA)
+   ========================================= */
+.menu-btn {
+    position: fixed;
+    z-index: 1000;
+    background: var(--dark-bg);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: transform 0.2s, background 0.2s;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    white-space: nowrap; /* Evita que el texto se parta en dos líneas */
+}
+
+.menu-btn:hover {
+    background: #333;
+    transform: translateY(-2px);
+}
+
+/* =========================================
+   CONTENEDOR SUPERIOR DERECHO
+   Alinea la barra de búsqueda y los botones
+   ========================================= */
+.top-right-container {
+    position: fixed;
+    top: 10px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Espacio entre búsqueda y botones */
+    z-index: 1000;
+}
+
+/* =========================================
+   BARRA DE BÚSQUEDA
+   ========================================= */
+.search-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-wrapper input {
+    padding: 10px 100px 10px 15px;
+    border: 1px solid #ccc; /* Borde normal */
+    border-radius: 10px; /* Más redondeado para combinar con el diseño */
+    width: 300px;
+    height: 20px;
+    background-color: white;
+    outline: none; /* Quita el borde azul feo por defecto del navegador */
+    transition: all 0.3s ease; /* Transición suave para todos los cambios */
+    
+}
+
+/* Estado cuando el usuario hace clic o selecciona la barra */
+.search-wrapper input:focus {
+    width: 310px; /* Se expande un poco */
+    border-color: var(--accent); /* Cambia el color del borde al azul de tus variables */
+    
+    /* Efecto de iluminación (resplandor) */
+    /* El cuarto valor (8px) controla qué tan "difuso" es el brillo */
+    box-shadow: 0 0 8px rgba(0, 168, 255, 0.5); 
+}
+
+.search-icon {
+    position: absolute;
+    right: 12px;
+    color: #888;
+    pointer-events: none; /* No interfiere con el clic del input */
+}
+
+/* =========================================
+   ESTILOS DE BOTONES AUTH
+   ========================================= */
+.btn-auth {
+    padding: 10px 20px;
+    border-radius: 6px;
+    border: none;
+    top: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap; /* Evita que el texto se rompa */
+}
+
+.btn-login {
+    background: var(--dark-bg);
+    color: white;
+}
+
+.btn-register {
+    background: var(--dark-bg);
+    color: white;
+}
+
+/* =========================================
+   PANEL LATERAL (SIDEBAR)
+   Cambiado para que se esconda a la IZQUIERDA
+   ========================================= */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: calc(var(--sidebar-width) * -1); /* Escondido fuera de la pantalla (izquierda) */
+    width: var(--sidebar-width);
+    height: 100vh;
+    background: var(--dark-bg);
+    color: var(--text-main);
+    transition: left 0.3s ease; /* Animación de entrada */
+    z-index: 2000;
+
+    /* Habilitar Scroll */
+    overflow-y: auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+.sidebar::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 10px;
+}
+
+.sidebar.open {
+    left: 0;
+}
+
+/* =========================================
+   ESTRUCTURA DE CONTENEDORES Y LÍNEAS
+   ========================================= */
+.filter-section {
+    padding: 20px 0;
+    border-bottom: 1px solid var(--line-color);
+}
+
+.no-line {
+    border-bottom: none;
+}
+
+.section-title {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.filter-group {
+    margin-bottom: 15px;
+    padding-left: 10px;
+}
+
+.group-title {
+    font-size: 0.9rem;
+    color: var(--accent);
+    margin-bottom: 10px;
+}
+
+/* =========================================
+   DISEÑO DE TEXTOS CLICKEABLES
+   ========================================= */
+.filter-item {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    cursor: pointer;
+    transition: color 0.2s;
+    display: inline-block;
+}
+
+.filter-item:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+/* =========================================
+   GRIDS Y ALINEACIONES
+   ========================================= */
+
+/* Rejilla 2x2 para Categorías */
+.grid-2x2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+/* Diseño en columna (Precio, Licencia, Estado) */
+.column-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-left: 10px;
+}
+
+
+/* Estado cuando el menú está abierto */
+.sidebar.open {
+    left: 0; /* Se mueve a la posición visible */
+}
+
+/* =========================================
+   ENCABEZADO DEL MENÚ
+   ========================================= */
+.sidebar-header {
+    padding: 30px 160px;
+    border-bottom: 1px solid #252525;
+}
+
+.sidebar h1 {
+    margin: 1;
+    font-size: 1rem;
+    color: var(--accent);
+}
+
+/* =========================================
+   LISTA DE ASSETS Y FILTROS
+   ========================================= */
+.asset-list {
+    list-style: none;
+    padding: 10px 0;
+    margin: 0;
+}
+
+/* Elementos individuales de la lista */
+.asset-item {
+    padding: 18px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: all 0.2s;
+}
+
+/* Efecto al pasar el mouse por encima */
+.asset-item:hover {
+    background: var(--item-hover);
+    border-left-color: var(--accent); /* Resalta el borde izquierdo */
+    padding-left: 35px; /* Pequeño empuje visual */
+}
+
+/* Etiquetas pequeñas (tags) junto al nombre del asset */
+.tag {
+    font-size: 0.7rem;
+    background: #252525;
+    color: var(--text-dim);
+    padding: 3px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+}
+
+/* =========================================
+   CAPA OSCURA (OVERLAY)
+   Bloquea el resto de la web y permite cerrar el menú
+   ========================================= */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(2px);
+    display: none;
+    z-index: 998;
+}
+
+.overlay.active {
+    display: block;
+}
+    `;
+
+    // 2. INYECTAR EL CSS EN EL HTML
+    const styleSheet = document.createElement("style");
+    styleSheet.innerText = css;
+    document.head.appendChild(styleSheet);
+
+    // 3. TODO TU HTML AQUÍ
+    const loadNavbar = () => {
+        const navbarHTML = `
+            <header class="main-navbar">
+        <button class="menu-btn" onclick="toggleMenu()">☰ Ver Assets</button>
+
+
+        <nav class="nav-center">
+                <div class="nav-item-dropdown">
+                    <span class="nav-link-main">Explorar</span>
+                    <div class="dropdown-content">
+                        <a href="#">Novedades</a>
+                        <a href="#">Tendencias</a>
+                        <a href="#">Top Ventas</a>
+                    </div>
+                </div>
+
+                <div class="nav-item-dropdown">
+                    <span class="nav-link-main">Comunidad</span>
+                    <div class="dropdown-content">
+                        <a href="#">Foros</a>
+                        <a href="#">Documentación</a>
+                    </div>
+                </div>
+
+                <span class="nav-link-main no-dropdown">Subir Asset</span>
+                <span class="nav-link-main no-dropdown">Lista de deseos</span>
+                
+                <div class="cart-container">
+                    <span class="cart-icon" title="Carrito de compras">🛒</span>
+                </div>
+
+
+                
+            </nav>
+
+        <div class="top-right-container">
+            <div class="search-wrapper">
+                <input type="text" placeholder="Buscar modelos, sprites, plugins o texturas">
+                <span class="search-icon">🔍</span>
+            </div>
+            <button class="btn-auth btn-login">Acceso</button>
+            <button class="btn-auth btn-register">Registro</button>
+            <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+        </div>
+    </header>
+    
+    <nav class="sidebar" id="sidebar">
+        
+        <div class="filter-section">
+            <h1 class="section-title">Categoría</h1>
+            
+            <div class="filter-group">
+                <h3 class="group-title">2D</h3>
+                <div class="grid-2x2">
+                    <span class="filter-item" onclick="handleFilter('Sprites')">Sprites</span>
+                    <span class="filter-item" onclick="handleFilter('Tilesets')">Tilesets</span>
+                    <span class="filter-item" onclick="handleFilter('Fondos')">Fondos</span>
+                    <span class="filter-item" onclick="handleFilter('Personajes')">Personajes</span>
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <h3 class="group-title">3D</h3>
+                <div class="grid-2x2">
+                    <span class="filter-item" onclick="handleFilter('Modelos')">Modelos</span>
+                    <span class="filter-item" onclick="handleFilter('Texturas')">Texturas</span>
+                    <span class="filter-item" onclick="handleFilter('Low Poly')">Low Poly</span>
+                    <span class="filter-item" onclick="handleFilter('Animaciones')">Animaciones</span>
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <h3 class="group-title">Audio</h3>
+                <div class="grid-2x2">
+                    <span class="filter-item" onclick="handleFilter('Musica')">Música</span>
+                    <span class="filter-item" onclick="handleFilter('Efectos')">Efectos de Sonido</span>
+                    <span class="filter-item" onclick="handleFilter('Loops')">Loops</span>
+                    <span class="filter-item" onclick="handleFilter('Voces')">Voces</span>
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <h3 class="group-title">Código</h3>
+                <div class="grid-2x2">
+                    <span class="filter-item" onclick="handleFilter('Scripts')">Scripts</span>
+                    <span class="filter-item" onclick="handleFilter('Plugins')">Plugins</span>
+                    <span class="filter-item" onclick="handleFilter('Shaders')">Shaders</span>
+                    <span class="filter-item" onclick="handleFilter('Plantillas')">Plantillas</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="filter-section">
+            <h1 class="section-title">Precio</h1>
+            <div class="column-layout">
+                <span class="filter-item" onclick="handleFilter('Gratis')">Gratis</span>
+                <span class="filter-item" onclick="handleFilter('Oferta')">En Oferta</span>
+                <span class="filter-item" onclick="handleFilter('Pago')">De Pago</span>
+            </div>
+        </div>
+
+        <div class="filter-section">
+            <h1 class="section-title">Compatibilidad</h1>
+            <div class="column-layout">
+                <span class="filter-item" onclick="handleFilter('Unity')">Unity</span>
+                <span class="filter-item" onclick="handleFilter('Unreal')">Unreal Engine</span>
+                <span class="filter-item" onclick="handleFilter('Godot')">Godot</span>
+                <span class="filter-item" onclick="handleFilter('GameMaker')">GameMaker</span>
+                <span class="filter-item" onclick="handleFilter('LOVE')">LÖVE</span>
+            </div>
+        </div>
+
+        <div class="filter-section">
+            <h1 class="section-title">Licencia</h1>
+            <div class="column-layout">
+                <span class="filter-item" onclick="handleFilter('Dominio Publico')">Dominio Público</span>
+                <span class="filter-item" onclick="handleFilter('Uso Comercial')">Uso Comercial</span>
+                <span class="filter-item" onclick="handleFilter('Atribucion')">Atribución requerida</span>
+            </div>
+        </div>
+
+        <div class="filter-section no-line">
+            <h1 class="section-title">Estado</h1>
+            <div class="column-layout">
+                <span class="filter-item" onclick="handleFilter('Completos')">Assets completos</span>
+                <span class="filter-item" onclick="handleFilter('Complementos')">Complementos</span>
+                <span class="filter-item" onclick="handleFilter('Paquetes')">Paquetes</span>
+            </div>
+        </div>
+
+    </nav>
+        `;
+        document.body.insertAdjacentHTML('afterbegin', navbarHTML);
+    };
+
+    // 4. LÓGICA DE FUNCIONAMIENTO
+    window.toggleMenu = function() {
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+        sidebar.classList.toggle('open');
+        overlay.classList.toggle('active');
+    };
+
+    // Inicializar cuando el DOM esté listo
+    if (document.readyState === "complete" || document.readyState === "interactive") {
+        loadNavbar();
+    } else {
+        document.addEventListener("DOMContentLoaded", loadNavbar);
+    }
+})();
