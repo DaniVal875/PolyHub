@@ -120,3 +120,13 @@ CREATE TABLE ARCHIVOSASSET (
     version VARCHAR(50),
     FOREIGN KEY (id_asset) REFERENCES ASSETS(id_asset) ON DELETE CASCADE
 );
+
+-- 13. Crear tabla para las capturas o imágenes de detalle
+CREATE TABLE IMAGENES_ASSET (
+    id_imagen INT AUTO_INCREMENT PRIMARY KEY,
+    id_asset INT NOT NULL,
+    url_imagen VARCHAR(255) NOT NULL,
+    orden INT DEFAULT 0, -- Por si quieres que aparezcan en un orden específico
+    fechaSubida DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_asset) REFERENCES ASSETS(id_asset) ON DELETE CASCADE
+);
