@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PolyHub - Explorar Assets</title>
+    
+    <link rel="stylesheet" href="Diseño css/DisenoIndex.css">
+</head>
+<body>
+
+    <header style="width: 100%; border-bottom: 1px solid #ddd; padding: 10px 0; background: white; font-family: sans-serif;">
+        </header>
+    <h1 style="text-align: center; padding-top: 20px !important; margin: 0; color: #e8e8e8;">Lo Mas Popular</h1>
+    <div class="carrusel-destacado">
+    <div id="carrusel-container" class="carrusel-container">
+        </div>
+    <button id="prev-btn" class="carrusel-btn btn-prev">&#10094;</button>
+    <button id="next-btn" class="carrusel-btn btn-next">&#10095;</button>
+    </div>
+    
+
+    <main class="main-container">
+        <div id="assets-grid" class="assets-grid"></div>
+
+        <div id="no-assets-message" class="no-assets-message" style="display: none;">
+            No hay assets disponibles ahora.
+        </div>
+
+        <div id="loading-spinner" class="loading-spinner" style="display: none;">
+            Cargando más...
+        </div>
+    </main>
+
+    <script src="../Controladores/JavaScript/Menu.js"></script>
+    <script src="../Controladores/JavaScript/Contenedores.js"></script>
+    <script src="../Controladores/JavaScript/Carrusel.js"></script>
+</body>
+</html>

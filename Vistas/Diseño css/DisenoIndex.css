@@ -1,0 +1,257 @@
+:root {
+    --primary-dark: #2d3142;
+    --text-color: #333;
+    --text-light: #777;
+    --card-bg: #fff;
+    --card-border: #eee;
+    --price-color: #2e7d32;
+}
+
+body {
+    background-color: #1d1d1d;
+    margin: 0;
+    font-family: sans-serif;
+    padding-top: 40px !important; 
+}
+
+.main-container {
+    padding: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.assets-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); 
+    gap: 25px;
+}
+
+.asset-card {
+    border: none;
+    background: #111111;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.asset-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+}
+
+.asset-card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px 12px 0 0;
+
+    transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                box-shadow 0.8s ease, 
+                z-index 0s;
+    
+    position: relative;
+    z-index: 2;
+}
+
+.asset-card-image-container {
+    width: 100%;
+    height: 180px;
+    position: relative;
+    overflow: visible; 
+    z-index: 1;
+}
+
+.asset-card-info {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.asset-card-image.zoomed {
+    transform: scale(1.15);
+    z-index: 100; 
+    border-radius: 12px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5); 
+}
+
+.text-truncate-single {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+.text-truncate-multi {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.asset-tags {
+    font-size: 12px;
+    color: #a5a5a5;
+    margin-bottom: 8px;
+    line-height: 1.4;
+    height: 1.4em;
+}
+
+.asset-name {
+    letter-spacing: -0.5px;
+    color: #c9c9c9;
+}
+
+.asset-description {
+    font-size: 14px;
+    color: #b9b9b9;
+    margin: 0 0 10px 0;
+    line-height: 1.5;
+}
+
+.asset-creator {
+    font-size: 14px;
+    color: #808080;
+    margin-bottom: 5px;
+}
+
+.asset-type {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #808080;
+    background-color: #292929;
+    padding: 2px 6px;
+    border-radius: 4px;
+    align-self: flex-start;
+    margin-bottom: 10px;
+}
+
+.asset-card-bottom {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.asset-os {
+    font-size: 16px;
+    color: var(--text-light);
+    display: flex;
+    gap: 6px;
+}
+
+.asset-price {
+    font-size: 16px;
+    font-weight: bold;
+    color: #afafaf;
+}
+
+.asset-price.free {
+    color: #579969;
+}
+
+.no-assets-message {
+    text-align: center;
+    font-size: 20px;
+    color: var(--text-light);
+    padding: 50px;
+}
+
+.loading-spinner {
+    text-align: center;
+    padding: 20px;
+    color: var(--primary-dark);
+    font-weight: bold;
+}
+
+.carrusel-destacado {
+    position: relative;
+    width: 90%;
+    max-width: 900px;
+    height: 350px;
+    margin: 20px auto;
+    background-color: #1a1c23;
+    overflow: hidden;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.carrusel-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.carrusel-item {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 1.2s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+.carrusel-item.active {
+    opacity: 1;
+    z-index: 2;
+}
+
+.carrusel-bg-blur {
+    position: absolute;
+    inset: -20px;
+    background-size: cover;
+    background-position: center;
+    filter: blur(25px) brightness(0.5);
+    z-index: 1;
+}
+
+.carrusel-main-img {
+    position: relative;
+    height: 100%;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+    z-index: 2;
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); /* Suaviza los bordes laterales de la imagen */
+}
+
+.carrusel-btn {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 80px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 2.5rem;
+    font-weight: 100;
+    transition: all 0.3s ease;
+    user-select: none;
+}
+
+.carrusel-btn:hover {
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.btn-prev {
+    left: 0;
+    background: linear-gradient(to right, rgba(0,0,0,0.2), transparent);
+}
+
+.btn-next {
+    right: 0;
+    background: linear-gradient(to left, rgba(0,0,0,0.2), transparent);
+}
+
+.carrusel-btn:active {
+    transform: scale(0.9);
+}
