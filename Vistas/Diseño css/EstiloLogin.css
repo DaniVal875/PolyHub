@@ -1,0 +1,196 @@
+/* ==========================================
+   VARIABLES Y CONFIGURACIÓN BASE
+   ========================================== */
+:root {
+    --bg-principal: #0b0c10;      /* Un negro más profundo para resaltar el brillo de fondo */
+    --bg-tarjeta: rgba(30, 30, 30, 0.75); /* Tarjeta semi-transparente para el efecto borroso */
+    --texto-blanco: #ffffff;
+    --texto-mutado: #aaaaaa;       
+    --fuente-sistema: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    /* Fondo oscuro combinado con círculos de luz difuminados (estilo interfaz de videojuegos) */
+    background-color: var(--bg-principal);
+    background-image: 
+        radial-gradient(circle at 10% 20%, rgba(108, 92, 231, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(0, 206, 201, 0.12) 0%, transparent 45%);
+    background-attachment: fixed;
+    
+    color: var(--texto-blanco);
+    font-family: var(--fuente-sistema);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* ==========================================
+   CONTENEDOR PRINCIPAL CON EFECTO GLASSMORPHISM
+   ========================================== */
+.contenedor-acceso {
+    background-color: var(--bg-tarjeta);
+    /* El truco mágico: genera el efecto de vidrio esmerilado/borroso detrás de la tarjeta */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px); 
+    
+    padding: 40px 30px;
+    border-radius: 16px;
+    /* Un borde sutil que ayuda a definir la tarjeta sobre el fondo borroso */
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+}
+
+.contenedor-acceso h1 {
+    font-size: 2.6rem;
+    margin-bottom: 8px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    /* Un pequeño destello de degradado en el texto del logo */
+    background: linear-gradient(135deg, #fff 0%, #bbb 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.subtitulo {
+    color: var(--texto-mutado);
+    font-size: 0.95rem;
+    margin-bottom: 35px;
+}
+
+/* ==========================================
+   BOTONES REUTILIZABLES
+   ========================================== */
+.grupo-botones {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.btn {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.25s ease;
+}
+
+/* Botón estilo Principal (Registrarse) */
+.btn-principal {
+    background-color: var(--texto-blanco);
+    color: #000;
+}
+
+.btn-principal:hover {
+    background-color: #e5e5e5;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+}
+
+/* Botón estilo Secundario (Iniciar Sesión) */
+.btn-secundario {
+    background-color: rgba(255, 255, 255, 0.06);
+    color: var(--texto-blanco);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.btn-secundario:hover {
+    background-color: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+/* Texto de ayuda al pie */
+.texto-ayuda {
+    margin-top: 25px;
+    font-size: 0.85rem;
+    color: var(--texto-mutado);
+}
+
+/* ==========================================
+   FORMULARIOS Y CAMPOS DE TEXTO
+   ========================================== */
+.grupo-input {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-bottom: 18px;
+}
+
+.grupo-input label {
+    font-size: 0.9rem;
+    margin-bottom: 6px;
+    color: var(--texto-blanco);
+    font-weight: 600;
+}
+
+.grupo-input input {
+    padding: 12px 14px;
+    font-size: 1rem;
+    /* Borde sutil transparente */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    /* Fondo oscuro semi-transparente para que el blur de atrás se note */
+    background-color: rgba(0, 0, 0, 0.4); 
+    color: var(--texto-blanco);
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.grupo-input input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.grupo-input input:focus {
+    border-color: var(--texto-blanco);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+/* MENSAJES DE ERROR Y ENLACES */
+.mensaje-error {
+    color: #ff5252; /* Rojo brillante que resalta en modo oscuro */
+    font-size: 0.85rem;
+    margin-top: 6px;
+    font-weight: 600;
+}
+
+.enlace {
+    color: var(--texto-blanco);
+    text-decoration: underline;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+.enlace:hover {
+    color: var(--texto-mutado);
+}
+
+/* Quitar bordes y fondos por defecto a los botones tipo submit */
+button.btn {
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.contenedor-recuperar {
+    text-align: center; /* Cambiado a centrado como pediste */
+    margin-bottom: 20px;
+}
+
+.contenedor-recuperar .enlace {
+    font-size: 0.85rem;
+}

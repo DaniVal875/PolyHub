@@ -272,8 +272,8 @@
                         <input type="text" style="background-color: #242424; color: #c7c7c7" placeholder="Buscar modelos, sprites, plugins...">
                         <span style="position: absolute; right: 12px; top:7px; color: #888;">🔍</span>
                     </div>
-                    <button class="btn-auth">Acceso</button>
-                    <button class="btn-auth">Registro</button>
+                    <button onclick="window.location.href='../Vistas/InicioSesion.php'" class="btn-auth">Acceso</button>
+                    <button onclick="window.location.href='../Vistas/CrearCuenta.php'" class="btn-auth">Registro</button>
                 </div>
             </header>
             
