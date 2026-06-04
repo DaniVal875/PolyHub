@@ -1,0 +1,239 @@
+/* ==========================================================================
+   INTERFAZ COMPLETA DEL CARRITO DE COMPRAS (poly_hub)
+   ========================================================================== */
+
+/* Se reutilizan las variables nativas y el fondo radial del body ya existente */
+
+.cart-wrapper-global {
+    width: 100%;
+    max-width: 950px; /* Alineado al tamaño de vista-asset-wrapper */
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ==========================================
+   CABECERA DEL CARRITO (Glassmorphism integrado)
+   ========================================== */
+.cart-panel-cabecera {
+    background-color: var(--bg-tarjeta);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 25px 35px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 35px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.cart-titulos .sub-label {
+    font-size: 0.8rem;
+    color: var(--texto-mutado);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.cart-titulos h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--texto-blanco);
+    margin: 0;
+}
+
+/* Botón descargar todos alineado con btn-assets/btn-descargar-asset */
+.btn-download-all {
+    display: inline-block;
+    padding: 12px 24px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 8px;
+    background-color: var(--accent-blue);
+    color: var(--texto-blanco);
+    border: 1px solid #3ca2d3;
+    transition: all 0.25s ease;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(34, 125, 170, 0.3);
+}
+
+.btn-download-all:hover {
+    background-color: #1a6286;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(34, 125, 170, 0.5);
+}
+
+/* ==========================================
+   TARJETAS ALARGADAS DE LOS ASSETS
+   ========================================== */
+.asset-card-horizontal {
+    background-color: rgba(25, 25, 25, 0.65); /* Color de tarjeta estándar */
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    margin-bottom: 20px;
+    gap: 25px;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.asset-card-horizontal:hover {
+    transform: translateY(-3px);
+    border-color: rgba(60, 162, 211, 0.3);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Imagen al borde izquierdo del contenedor */
+.asset-horizontal-img {
+    width: 140px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    flex-shrink: 0;
+    background-color: #000;
+}
+
+/* Detalles informativos centrales */
+.asset-horizontal-details {
+    flex-grow: 1;
+    min-width: 0; /* Requisito crítico para que la elipsis de texto funcione */
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.asset-horizontal-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--texto-blanco);
+    margin: 0;
+}
+
+.asset-horizontal-description {
+    font-size: 0.88rem;
+    color: var(--texto-mutado);
+    line-height: 1.4;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Recorta con ... si no cabe */
+}
+
+.asset-horizontal-price {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--texto-blanco);
+}
+
+.asset-horizontal-price.free {
+    color: #579969; /* Verde de éxito uniforme */
+}
+
+/* ==========================================
+   ZONA DE ACCIONES DERECHA
+   ========================================== */
+.asset-horizontal-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-shrink: 0;
+}
+
+/* Caja de flechas de nivel */
+.arrow-level-box {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 32px;
+}
+
+.btn-level-arrow {
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--texto-blanco);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.btn-level-arrow:hover {
+    background-color: var(--accent-blue);
+    border-color: #3ca2d3;
+}
+
+/* Botones de acción general (Eliminar e instalación) */
+.btn-action-cart {
+    background-color: rgba(255, 255, 255, 0.06);
+    color: var(--texto-blanco);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    width: 42px;
+    height: 42px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: all 0.25s ease;
+}
+
+/* Botón descarga individual hereda verde */
+.btn-action-cart.download-single:hover {
+    background-color: #579969;
+    border-color: #579969;
+    transform: scale(1.05);
+}
+
+/* Botón borrar destructivo hereda rojo */
+.btn-action-cart.delete-single:hover {
+    background-color: #ff5252;
+    border-color: #ff5252;
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(255, 82, 82, 0.3);
+}
+
+/* ==========================================
+   RESPONSIVE COMPACTO
+   ========================================== */
+@media (max-width: 768px) {
+    .cart-panel-cabecera {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+        padding: 20px;
+    }
+    .btn-download-all {
+        width: 100%;
+    }
+    .asset-card-horizontal {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+    }
+    .asset-horizontal-img {
+        width: 100%;
+        height: 160px;
+    }
+    .asset-horizontal-actions {
+        width: 100%;
+        justify-content: center;
+        margin-top: 10px;
+    }
+    .arrow-level-box {
+        flex-direction: row;
+    }
+}

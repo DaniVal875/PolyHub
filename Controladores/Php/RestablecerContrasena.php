@@ -5,7 +5,7 @@ session_start();
 $bdhost = "localhost";
 $bduser = "root";
 $bdpass = "";
-$bdname = "soft_dinner";
+$bdname = "poly_hub"; // Adaptado a tu nueva base de datos
 
 $dsn = "mysql:host=$bdhost;dbname=$bdname;charset=utf8mb4";
 $options = [
@@ -29,8 +29,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($correoValor === '') {
         $errorEmail = true;
     } else {
-        // Comprobar si el correo existe en la BD
-        $sql = "SELECT id_usuario FROM usuarios WHERE correo = :correo LIMIT 1";
+        // Comprobar si el correo existe en la BD (Cambiado 'correo' por 'email' según poly_hub)
+        $sql = "SELECT id_usuario FROM usuarios WHERE email = :correo LIMIT 1";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([':correo' => $correoValor]);
         $usuario = $stmt->fetch();

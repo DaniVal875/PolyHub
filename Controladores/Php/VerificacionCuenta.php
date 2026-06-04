@@ -5,7 +5,7 @@ session_start();
 $bdhost = "localhost";
 $bduser = "root";
 $bdpass = "";
-$bdname = "soft_dinner";
+$bdname = "poly_hub"; // Adaptado a tu nueva base de datos
 
 $dsn = "mysql:host=$bdhost;dbname=$bdname;charset=utf8mb4";
 $options = [
@@ -106,7 +106,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $contrasena = $_SESSION['create_contrasena'] ?? '';
 
                 if ($nombre !== '' && $correo !== '') {
-                    $sql = "INSERT INTO usuarios (nombre, correo, contrasena) VALUES (:nombre, :correo, :contrasena)";
+                    // Adaptado a los nombres de columna de la tabla usuarios de poly_hub
+                    $sql = "INSERT INTO usuarios (username, email, password) VALUES (:nombre, :correo, :contrasena)";
                     $stmt = $pdo->prepare($sql);
                     $stmt->execute([':nombre' => $nombre, ':correo' => $correo, ':contrasena' => $contrasena]);
 

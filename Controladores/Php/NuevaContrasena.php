@@ -5,7 +5,7 @@ session_start();
 $bdhost = "localhost";
 $bduser = "root";
 $bdpass = "";
-$bdname = "soft_dinner";
+$bdname = "poly_hub"; // Adaptado a tu nueva base de datos
 
 $dsn = "mysql:host=$bdhost;dbname=$bdname;charset=utf8mb4";
 $options = [
@@ -45,7 +45,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$errorNoSession) {
     else {
         $correo = $_SESSION['reset_correo'];
         
-        $sql = "UPDATE usuarios SET contrasena = :contrasena WHERE correo = :correo";
+        // Se cambiaron las columnas a 'password' y 'email' según la estructura de poly_hub
+        $sql = "UPDATE usuarios SET password = :contrasena WHERE email = :correo";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([':contrasena' => $pass1, ':correo' => $correo]);
 
@@ -56,7 +57,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$errorNoSession) {
         }
         
         // Redirigir al login o a la pantalla de éxito
-        // (Ajusta el nombre de InicioSesion.php si en tu proyecto se llama diferente)
         header("Location: ../RestablecerContraseña/3-ContrasenaActualizada.php");
         exit;
     }

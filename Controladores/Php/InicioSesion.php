@@ -1,11 +1,13 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
-// Configuración de la base de datos (Solo PDO para máxima eficiencia)
+// Configuración de la base de datos
 $bdhost = "localhost";
 $bduser = "root";
 $bdpass = "";
-$bdname = "soft_dinner";
+$bdname = "poly_hub"; 
 
 $dsn = "mysql:host=$bdhost;dbname=$bdname;charset=utf8mb4";
 $options = [
@@ -29,23 +31,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (!empty($correo) && !empty($contrasena)) {
         
-        // Buscamos el usuario en la base de datos
-        $sql = "SELECT * FROM usuarios WHERE correo = :correo LIMIT 1";
+        // Buscamos al usuario utilizando 'email' según la estructura de poly_hub
+        $sql = "SELECT * FROM usuarios WHERE email = :correo LIMIT 1";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([':correo' => $correo]);
         $usuario = $stmt->fetch();
 
         if ($usuario) {
-            // Nota: En un futuro te recomiendo usar password_verify() en lugar de comparación directa "==" por seguridad
-            if ($contrasena === $usuario['contrasena']) {
+            // Validación de contraseña directa (tal como lo manejas en tu base de datos)
+            if ($contrasena === $usuario['password']) {
                 
-                // Guardar datos relevantes en la sesión
-                $_SESSION['user_correo'] = $correo;
-                $_SESSION['user_nombre'] = $usuario['nombre'] ?? '';
-                $_SESSION['id_usuario'] = isset($usuario['id_usuario']) ? (int)$usuario['id_usuario'] : null;
+                // ==========================================
+                // VARIABLES DE SESIÓN FIJADAS PARA EL INDEX
+                // ==========================================
+                $_SESSION['user_correo'] = $usuario['email'];
+                $_SESSION['user_nombre'] = $usuario['username'] ?? '';
+                $_SESSION['id_usuario']  = (int)$usuario['id_usuario'];
+                
+                // Sincronización inmediata de datos dinámicos del menú
+                $_SESSION['user_avatar'] = !empty($usuario['avatar_url']) ? $usuario['avatar_url'] : 'uploads/avatars/default.png';
+                $_SESSION['user_saldo']  = number_format($usuario['saldo'], 2, '.', '');
 
-                // Redirigir al panel principal
-                header("Location: ../Vistas/Index.html");
+                // Redirigir limpiamente al index principal
+                header("Location: ../Vistas/index.php");
                 exit(); 
             } else {
                 $mensaje = "Contraseña Incorrecta";

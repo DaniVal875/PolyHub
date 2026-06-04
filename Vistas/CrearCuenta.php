@@ -13,11 +13,11 @@
         <h1>Crear cuenta</h1>
         <p class="subtitulo">Únete a la comunidad de PolyHub</p>
 
-        <form method="post" action="CrearCuenta.php">
+        <form method="post" action="">
             
             <div class="grupo-input">
-                <label for="nombre">Nombre</label>
-                <input id="nombre" name="nombre" type="text" placeholder="Escriba su nombre" value="<?php echo htmlspecialchars($nombre); ?>" required>
+                <label for="nombre">Nombre de usuario</label>
+                <input id="nombre" name="nombre" type="text" placeholder="Escriba su nombre de usuario" value="<?php echo htmlspecialchars($nombre); ?>" required>
             </div>
 
             <div class="grupo-input">

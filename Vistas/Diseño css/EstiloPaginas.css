@@ -1,0 +1,890 @@
+/* ==========================================================================
+   CONFIGURACIÓN BASE DEL PERFIL Y SISTEMA (poly_hub)
+   ========================================================================== */
+:root {
+    --bg-principal: #1d1d1d;       /* Alineado con el fondo del index */
+    --bg-tarjeta: rgba(30, 30, 30, 0.75); /* Glassmorphism del Login */
+    --texto-blanco: #ffffff;
+    --texto-mutado: #aaaaaa;       
+    --fuente-sistema: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    --accent-blue: #227daaa8;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-principal);
+    background-image: 
+        radial-gradient(circle at 10% 20%, rgba(108, 92, 231, 0.1) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(0, 206, 201, 0.08) 0%, transparent 45%);
+    background-attachment: fixed;
+    
+    color: var(--texto-blanco);
+    font-family: var(--fuente-sistema);
+    display: flex;
+    justify-content: center; /* Centrado horizontal estricto */
+    align-items: center;     /* Centrado vertical estricto */
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* ==========================================================================
+   TARJETA CONTENEDORA DE PERFIL
+   ========================================================================== */
+.perfil-wrapper-global {
+    display: flex; 
+    flex-direction: column; 
+    width: 100%; 
+    max-width: 650px; /* Define el ancho máximo de la zona del perfil */
+}
+
+.contenedor-perfil {
+    background-color: var(--bg-tarjeta);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px); 
+    
+    padding: 40px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    width: 100%;
+}
+
+.perfil-layout {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+}
+
+/* Sección izquierda (Avatar) */
+.perfil-izquierda {
+    flex-shrink: 0;
+}
+
+.perfil-avatar {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Sección derecha (Detalles) */
+.perfil-derecha {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.perfil-info-superior {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 15px;
+}
+
+.perfil-nombre {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--texto-blanco);
+    letter-spacing: -0.5px;
+}
+
+.perfil-saldo {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.saldo-etiqueta {
+    font-size: 0.85rem;
+    color: var(--texto-mutado);
+    text-transform: uppercase;
+}
+
+.saldo-monto {
+    font-size: 1.05rem;
+    font-weight: bold;
+    color: #579969; 
+}
+
+/* ==========================================================================
+   ESTILOS DE ACCIONES Y BOTONES GENERALES
+   ========================================================================== */
+.perfil-acciones {
+    display: flex;
+    flex-direction: column; 
+    gap: 12px;
+    justify-content: flex-start;
+}
+
+.btn-logout, .btn-assets {
+    display: inline-block;
+    padding: 10px 22px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 6px;
+    background-color: rgba(255, 255, 255, 0.06);
+    color: var(--texto-blanco);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    transition: all 0.25s ease;
+    cursor: pointer;
+    text-align: center;
+    width: 100%; 
+    max-width: 200px;
+}
+
+/* Hover de los Assets con tu azul de marca */
+.btn-assets:hover {
+    background-color: var(--accent-blue);
+    border-color: #3ca2d3;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(34, 125, 170, 0.4);
+}
+
+/* Hover destructivo original */
+.btn-logout:hover {
+    background-color: #ff5252; 
+    border-color: #ff5252;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 82, 82, 0.3);
+}
+
+.btn-regresar {
+    align-self: flex-start;
+    text-decoration: none;
+    color: var(--texto-mutado);
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 15px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.2s;
+}
+
+.btn-regresar:hover {
+    color: var(--texto-blanco);
+}
+
+/* Responsive para pantallas compactas del perfil */
+@media (max-width: 550px) {
+    body {
+        flex-direction: column;
+        justify-content: flex-start;
+        padding-top: 40px;
+    }
+    .perfil-layout {
+        flex-direction: column;
+        text-align: center;
+    }
+    .perfil-info-superior {
+        justify-content: center;
+        flex-direction: column;
+    }
+    .perfil-acciones {
+        align-items: center;
+    }
+    .btn-regresar {
+        align-self: center;
+    }
+}
+
+/* ==========================================================================
+   INTERFAZ COMPLETA DEL PANEL DE ASSETS (Dashboard Creador)
+   ========================================================================== */
+.assets-wrapper-global {
+    width: 100%;
+    max-width: 1200px; /* Panel ancho para el Grid multi-columna */
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Cabecera del panel */
+.panel-usuario-cabecera {
+    background-color: var(--bg-tarjeta);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 25px 35px;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    margin-bottom: 35px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.bloque-usuario-izq {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.mini-avatar-panel {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2.5px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.info-texto-panel .sub-label {
+    font-size: 0.8rem;
+    color: var(--texto-mutado);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.nombre-usuario-panel {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--texto-blanco);
+}
+
+/* Billetera integrada en esquina opuesta */
+.billetera-panel {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 12px 24px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    text-align: right;
+}
+
+.billetera-panel .saldo-label {
+    font-size: 0.75rem;
+    color: var(--texto-mutado);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 2px;
+}
+
+.billetera-panel .saldo-monto-panel {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #579969; /* Verde de éxito uniforme */
+}
+
+/* Zona del grid y contenido */
+.seccion-assets-creador {
+    width: 100%;
+}
+
+.titulo-seccion-assets {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: var(--texto-blanco);
+    border-left: 4px solid var(--accent-blue);
+    padding-left: 12px;
+}
+
+.assets-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    width: 100%;
+}
+
+/* Tarjetas individuales de assets */
+.asset-card {
+    background-color: rgba(25, 25, 25, 0.65);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.asset-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(60, 162, 211, 0.3);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.5);
+}
+
+.asset-card-image-container {
+    width: 100%;
+    height: 165px;
+    overflow: hidden;
+    background-color: #000;
+    position: relative;
+}
+
+.asset-card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.15, 1, 0.3, 1);
+}
+
+.asset-card-image.zoomed {
+    transform: scale(1.1);
+}
+
+.asset-card-info {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.asset-tags {
+    font-size: 0.75rem;
+    color: #3ca2d3;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+}
+
+.asset-name {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--texto-blanco);
+    margin-bottom: 8px;
+}
+
+.asset-description {
+    font-size: 0.85rem;
+    color: var(--texto-mutado);
+    line-height: 1.4;
+    margin-bottom: 12px;
+    flex-grow: 1;
+}
+
+.asset-creator {
+    font-size: 0.8rem;
+    color: var(--texto-blanco);
+    opacity: 0.8;
+    margin-bottom: 4px;
+}
+
+.asset-type {
+    font-size: 0.75rem;
+    color: var(--texto-mutado);
+    margin-bottom: 15px;
+}
+
+.asset-card-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 12px;
+}
+
+.asset-os small {
+    color: var(--texto-mutated);
+    font-size: 0.75rem;
+}
+
+.asset-price {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--texto-blanco);
+}
+
+.asset-price.free {
+    color: #579969;
+}
+
+/* ==========================================================================
+   INTERFAZ DEL CARRITO DE COMPRAS (Nueva Sección Agregada)
+   ========================================================================== */
+.cart-wrapper-global {
+    width: 100%;
+    max-width: 950px; 
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.cart-panel-cabecera {
+    background-color: var(--bg-tarjeta);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 25px 35px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 35px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.cart-titulos .sub-label {
+    font-size: 0.8rem;
+    color: var(--texto-mutado);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.cart-titulos h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--texto-blanco);
+    margin: 0;
+}
+
+.btn-download-all {
+    display: inline-block;
+    padding: 12px 24px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 8px;
+    background-color: var(--accent-blue);
+    color: var(--texto-blanco);
+    border: 1px solid #3ca2d3;
+    transition: all 0.25s ease;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(34, 125, 170, 0.3);
+}
+
+.btn-download-all:hover {
+    background-color: #1a6286;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(34, 125, 170, 0.5);
+}
+
+/* Tarjetas horizontales de la lista del carrito */
+.asset-card-horizontal {
+    background-color: rgba(25, 25, 25, 0.65);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    margin-bottom: 20px;
+    gap: 25px;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.asset-card-horizontal:hover {
+    transform: translateY(-3px);
+    border-color: rgba(60, 162, 211, 0.3);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+.asset-horizontal-img {
+    width: 140px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    flex-shrink: 0;
+    background-color: #000;
+}
+
+.asset-horizontal-details {
+    flex-grow: 1;
+    min-width: 0; 
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.asset-horizontal-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--texto-blanco);
+    margin: 0;
+}
+
+.asset-horizontal-description {
+    font-size: 0.88rem;
+    color: var(--texto-mutado);
+    line-height: 1.4;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.asset-horizontal-price {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--texto-blanco);
+}
+
+.asset-horizontal-price.free {
+    color: #579969;
+}
+
+.asset-horizontal-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-shrink: 0;
+}
+
+/* Caja de reordenamiento de niveles */
+.arrow-level-box {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 32px;
+}
+
+.btn-level-arrow {
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--texto-blanco);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.btn-level-arrow:hover {
+    background-color: var(--accent-blue);
+    border-color: #3ca2d3;
+}
+
+.btn-action-cart {
+    background-color: rgba(255, 255, 255, 0.06);
+    color: var(--texto-blanco);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    width: 42px;
+    height: 42px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: all 0.25s ease;
+}
+
+.btn-action-cart.download-single:hover {
+    background-color: #579969;
+    border-color: #579969;
+    transform: scale(1.05);
+}
+
+.btn-action-cart.delete-single:hover {
+    background-color: #ff5252;
+    border-color: #ff5252;
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(255, 82, 82, 0.3);
+}
+
+/* ==========================================
+   UTILIDADES DE TEXTO TRUNCADO (ELIPSIS)
+   ========================================== */
+.text-truncate-single {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.text-truncate-multi {
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Límite de 2 renglones */
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
+}
+
+/* Bloque mensaje de fondo vacío */
+.mensaje-vacio-box {
+    text-align: center;
+    padding: 60px 20px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 2px dashed rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    margin-top: 10px;
+}
+
+.icono-vacio {
+    font-size: 3.5rem;
+    margin-bottom: 15px;
+    opacity: 0.5;
+}
+
+.mensaje-vacio-box h3 {
+    font-size: 1.3rem;
+    color: var(--texto-blanco);
+    margin-bottom: 8px;
+}
+
+.mensaje-vacio-box p {
+    font-size: 0.9rem;
+    color: var(--texto-mutado);
+}
+
+/* ==========================================
+   EXTENSION PARA LA VISTA DETALLADA DEL ASSET (VisualizarAssets.php)
+   ========================================== */
+.vista-asset-wrapper {
+    width: 100%;
+    max-width: 950px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.contenedor-detalle-asset {
+    background-color: var(--bg-tarjeta);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 35px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+    width: 100%;
+}
+
+.bloque-superior-layout {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+    margin-bottom: 30px;
+}
+
+.zona-imagen-izq {
+    flex: 1.4;
+    max-height: 380px;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
+
+.imagen-asset-principal {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.zona-acciones-der {
+    flex: 0.8;
+    display: flex;
+    flex-direction: column;
+}
+
+.contenedor-botones-flotantes {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.btn-accion-asset {
+    width: 100%;
+    padding: 14px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    text-align: center;
+    border: none;
+}
+
+.btn-descargar-asset {
+    background-color: #579969; /* Hereda tu verde de éxito */
+    color: var(--texto-blanco);
+    box-shadow: 0 4px 12px rgba(87, 153, 105, 0.3);
+}
+
+.btn-descargar-asset:hover {
+    background-color: #467e55;
+    transform: translateY(-2px);
+}
+
+.btn-editar-asset, .btn-carrito-asset {
+    background-color: rgba(255, 255, 255, 0.08);
+    color: var(--texto-blanco);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.btn-editar-asset:hover, .btn-carrito-asset:hover {
+    background-color: var(--accent-blue);
+    border-color: #3ca2d3;
+    transform: translateY(-2px);
+}
+
+.bloque-inferior-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.detalle-titulo-asset {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: var(--texto-blanco);
+    letter-spacing: -0.5px;
+}
+
+.detalle-descripcion-asset {
+    font-size: 1.05rem;
+    color: var(--texto-mutado);
+    line-height: 1.6;
+    margin-bottom: 30px;
+    text-align: justify;
+}
+
+.detalle-creador-box {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 8px 16px;
+    border-radius: 30px;
+    align-self: flex-start;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.avatar-creador-mini {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.info-creador-texto {
+    display: flex;
+    flex-direction: column;
+}
+
+.info-creador-texto .label-autor {
+    font-size: 0.75rem;
+    color: var(--texto-mutado);
+}
+
+.info-creador-texto .nombre-autor {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--texto-blanco);
+}
+
+.separador-metadatos {
+    border: 0;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.08);
+    margin: 25px 0;
+}
+
+.metadatos-valores-box {
+    display: flex;
+    gap: 40px;
+}
+
+.item-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.meta-label {
+    font-size: 0.8rem;
+    color: var(--texto-mutado);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.meta-valor {
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+.precio-gratis {
+    color: #579969;
+}
+
+.fecha-texto {
+    color: #3ca2d3;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+/* ==========================================================================
+   REGLAS RESPONSIVE GLOBALES (MEDIA QUERIES COMBINADOS)
+   ========================================================================== */
+@media (max-width: 768px) {
+    /* Ajustes para la cabecera de paneles */
+    .panel-usuario-cabecera, .cart-panel-cabecera {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+        padding: 20px;
+    }
+    .bloque-usuario-izq {
+        flex-direction: column;
+        gap: 12px;
+    }
+    .billetera-panel {
+        text-align: center;
+        width: 100%;
+    }
+    .btn-download-all {
+        width: 100%;
+    }
+
+    /* Ajustes para las tarjetas horizontales del carrito */
+    .asset-card-horizontal {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+    }
+    .asset-horizontal-img {
+        width: 100%;
+        height: 160px;
+    }
+    .asset-horizontal-actions {
+        width: 100%;
+        justify-content: center;
+        margin-top: 10px;
+    }
+    .arrow-level-box {
+        flex-direction: row;
+    }
+
+    /* Ajustes para la vista detallada de assets */
+    .bloque-superior-layout {
+        flex-direction: column;
+    }
+    .zona-imagen-izq, .zona-acciones-der {
+        width: 100%;
+        flex: none;
+    }
+    .metadatos-valores-box {
+        flex-direction: column;
+        gap: 20px;
+    }
+}

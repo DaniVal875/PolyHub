@@ -14,12 +14,12 @@
         <p class="subtitulo">Bienvenido de nuevo a PolyHub</p>
 
         <?php if(!empty($mensaje)): ?>
-            <p class="mensaje-error" style="text-align: center; margin-bottom: 15px; font-size: 1rem;">
+            <p class="mensaje-error" style="text-align: center; margin-bottom: 15px; font-size: 1rem; color: #ff6b6b;">
                 <?php echo $mensaje; ?>
             </p>
         <?php endif; ?>
 
-        <form method="post" action="InicioSesion.php">
+        <form method="post" action="">
             
             <div class="grupo-input">
                 <label for="correo">Correo electrónico</label>
@@ -50,8 +50,3 @@
 
 </body>
 </html>
-
-
-
-
-

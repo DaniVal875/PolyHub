@@ -5,7 +5,7 @@ session_start();
 $bdhost = "localhost";
 $bduser = "root";
 $bdpass = "";
-$bdname = "soft_dinner";
+$bdname = "poly_hub";
 
 $dsn = "mysql:host=$bdhost;dbname=$bdname;charset=utf8mb4";
 $options = [
@@ -37,8 +37,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($nombre && $correo && $contrasena && $contrasenaConfirmar) {
         
-        // Verificar si el correo ya existe (Optimizamos la consulta seleccionando solo el ID)
-        $sql = "SELECT id_usuario FROM usuarios WHERE correo = :correo LIMIT 1";
+        // Verificar si el correo ya existe (Se cambió 'correo' por 'email' según la tabla usuarios de poly_hub)
+        $sql = "SELECT id_usuario FROM usuarios WHERE email = :correo LIMIT 1";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([':correo' => $correo]);
         
